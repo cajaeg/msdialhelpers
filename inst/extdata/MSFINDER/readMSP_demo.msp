@@ -1,0 +1,30 @@
+NAME: Glu
+SCANNUMBER: 1718
+RETENTIONTIME: 6.06263
+PRECURSORMZ: 148.0611
+PRECURSORTYPE: [M+H]+
+IONMODE: Positive
+SPECTRUMTYPE: Centroid
+FORMULA: C5H9NO4
+INCHIKEY: 
+INCHI: 
+SMILES: C(CC(=O)O)C(C(=O)O)N
+AUTHORS: 
+COLLISIONENERGY: 40
+INSTRUMENT: 
+INSTRUMENTTYPE: 
+IONIZATION: 
+LICENSE: 
+COMMENT: 
+Num Peaks: 10
+83.79395	5740
+84.05258	216152	"Theoretical m/z 84.044389, Mass diff 0.008 (97.45 ppm), SMILES O=CC(N)CC, Annotation [C4H9NO-3H]+, Rule of HR True"
+84.06674	122200	"Theoretical m/z 84.044389, Mass diff 0.022 (265.87 ppm), SMILES O=CC(N)CC, Annotation [C4H9NO-3H]+, Rule of HR True"
+84.12599	2996	"Theoretical m/z 84.081324, Mass diff -0.045 (0 ppm), Formula C5H10N"
+84.23424	5135
+85.03407	16617
+102.0667	114420	"Theoretical m/z 102.054958, Mass diff 0.012 (115.04 ppm), SMILES O=C(O)C(N)CC, Annotation [C4H9NO2-H]+, Rule of HR True"
+130.06328	131737	"Theoretical m/z 130.049869, Mass diff 0.013 (103.11 ppm), SMILES O=CCCC(N)C(=O)O, Annotation [C5H9NO3-H]+, Rule of HR True"
+131.0406	3344
+148.07129	87251	"Theoretical m/z 148.060438, Mass diff 0.011 (73.29 ppm), SMILES O=C(O)CCC(N)C(=O)O, Annotation [C5H9NO4+H]+, Rule of HR True"
+

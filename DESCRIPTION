@@ -1,0 +1,28 @@
+Package: msdialhelpers
+Type: Package
+Title: R functions supporting mass spectrometric data analysis with MS-DIAL and MS-FINDER
+Version: 0.4.0
+Authors@R: 
+  person("Carsten", "Jaeger", 
+  email = "cajaeg@outlook.de", 
+  role = c("aut", "cre"),
+  comment = c(ORCID = "0000-0003-2192-1792"))
+Description: A collection of functions supporting import, export and analysis of files created or needed by MS-DIAL and MS-FINDER. 
+License: MIT + file LICENSE
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Depends: R (>= 4.1.0)
+Imports: 
+  methods, 
+  utils,
+  plyr,
+  HiResTEC,
+  webchem,
+  rlang,
+  dplyr,
+  purrr,
+  tibble,
+  tidyr,
+  tidyselect
+Suggests: 
