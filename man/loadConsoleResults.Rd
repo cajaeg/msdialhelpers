@@ -7,7 +7,9 @@
 loadConsoleResults(txtfile)
 }
 \arguments{
-\item{txtfile}{.msdial file for individual MS files. Use \code{\link{loadAlignmentResults}()} to import alignment results for multiple files.}
+\item{txtfile}{.msdial file for individual MS files. Use
+\code{\link{loadAlignmentResults}()} to import alignment results for
+multiple files.}
 }
 \value{
 data.frame

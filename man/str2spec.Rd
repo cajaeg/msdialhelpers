@@ -9,7 +9,8 @@ str2spec(x, colnames = c("mz", "i"))
 \arguments{
 \item{x}{character string encoding mass spectra, e.g. "100:999 101:121"}
 
-\item{colnames}{column names in resulting data.frame (default \code{c("mz", "i")})}
+\item{colnames}{column names in resulting data.frame (default \code{c("mz",
+"i")})}
 }
 \value{
 data.frame

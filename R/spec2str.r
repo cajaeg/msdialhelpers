@@ -1,7 +1,8 @@
 #' Convert mass spectrum from character to matrix representation
 #'
 #' @param x character string encoding mass spectra, e.g. "100:999 101:121"
-#' @param colnames column names in resulting data.frame (default \code{c("mz", "i")})
+#' @param colnames column names in resulting data.frame (default \code{c("mz",
+#'   "i")})
 #'
 #' @return data.frame
 #' @export
@@ -24,7 +25,8 @@ str2spec <- function (x, colnames = c("mz", "i"))
 #' @param x two-column matrix or data.frame
 #' @param sep separator to be used between 'mz' and 'intensity' (default ':')
 #' @param collapse separator to be used between (m/z, i) blocks (default ' ')
-#' @param round Number of decimal places to be used for mz and intensity, respectively (default \code{c(4,0)})
+#' @param round Number of decimal places to be used for mz and intensity,
+#'   respectively (default \code{c(4,0)})
 #'
 #' @return character string
 #' @export

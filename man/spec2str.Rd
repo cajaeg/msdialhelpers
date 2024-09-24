@@ -13,7 +13,8 @@ spec2str(x, sep = ":", collapse = " ", round = c(4, 0))
 
 \item{collapse}{separator to be used between (m/z, i) blocks (default ' ')}
 
-\item{round}{Number of decimal places to be used for mz and intensity, respectively (default \code{c(4,0)})}
+\item{round}{Number of decimal places to be used for mz and intensity,
+respectively (default \code{c(4,0)})}
 }
 \value{
 character string

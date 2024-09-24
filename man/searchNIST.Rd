@@ -19,18 +19,24 @@ searchNIST(
 )
 }
 \arguments{
-\item{spec}{mass spectrum: matrix or dataframe with m/z and intensity in the first two columns, or a list of matrices}
+\item{spec}{mass spectrum: matrix or dataframe with m/z and intensity in the
+first two columns, or a list of matrices}
 
-\item{searchtype}{one of "I" (identity, default), "Q" (quick identity), "S" (simple similarity),
-"H" (hybrid similarity), "L" (neutral loss similarity), "M" (ms/ms in EI library),
-"P" (peptide ms/ms search in a ms/ms library (use peak annotations and weighting), "G" (generic ms/ms search in a ms/ms library (no peak annotations or weighting used))}
+\item{searchtype}{one of "I" (identity, default), "Q" (quick identity), "S"
+(simple similarity), "H" (hybrid similarity), "L" (neutral loss
+similarity), "M" (ms/ms in EI library), "P" (peptide ms/ms search in a
+ms/ms library (use peak annotations and weighting), "G" (generic ms/ms
+search in a ms/ms library (no peak annotations or weighting used))}
 
-\item{presearchtype}{one of "d" (standard (use pre-indexed peaks); default), "s" (sequential (compare to all library spectra)),
-"f" (fast presearch (use pre-indexed peaks)), "m" (precursor ion m/z within precursor ion uncertainty - only for MS/MS search (P or G))}
+\item{presearchtype}{one of "d" (standard (use pre-indexed peaks); default),
+"s" (sequential (compare to all library spectra)), "f" (fast presearch (use
+pre-indexed peaks)), "m" (precursor ion m/z within precursor ion
+uncertainty - only for MS/MS search (P or G))}
 
 \item{hits}{how many hits to return}
 
-\item{extralibs}{libraries to use in addition to 'mainlib' and 'replib'; check "MSSEARCH" directory for further libraries that may be installed}
+\item{extralibs}{libraries to use in addition to 'mainlib' and 'replib';
+check "MSSEARCH" directory for further libraries that may be installed}
 
 \item{ri_obs}{measured retention index (RI)}
 
@@ -40,7 +46,8 @@ searchNIST(
 
 \item{mzlimits}{set m/z limits for spectral comparison}
 
-\item{localRdata}{attach meta data from local .rda (path to .rda or object already loaded in workspace)}
+\item{localRdata}{attach meta data from local .rda (path to .rda or object
+already loaded in workspace)}
 
 \item{.debug}{if TRUE keep temporary files created by MSPepSearch}
 }
@@ -48,9 +55,10 @@ searchNIST(
 data.frame
 }
 \description{
-Use "MSPepSearch64.exe" to search NIST library.
-Download zip file from NIST site, copy all files to "MSSEARCH" directory and add the following line to your .Rprofile:
-\code{options(msdialhelpers_mspepsearch_path = "/path/to/MSPepSearch64.exe")}
+Use "MSPepSearch64.exe" to search NIST library. Download zip file from NIST
+site, copy all files to "MSSEARCH" directory and add the following line to
+your .Rprofile: \code{options(msdialhelpers_mspepsearch_path =
+"/path/to/MSPepSearch64.exe")}
 }
 \details{
 Tested with MSPepSearch64 v2019_02_22.

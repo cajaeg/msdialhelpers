@@ -1,24 +1,32 @@
 #' Send mass spectrum to MSPepSearch
 #'
-#' Use "MSPepSearch64.exe" to search NIST library.
-#' Download zip file from NIST site, copy all files to "MSSEARCH" directory and add the following line to your .Rprofile:
-#' \code{options(msdialhelpers_mspepsearch_path = "/path/to/MSPepSearch64.exe")}
+#' Use "MSPepSearch64.exe" to search NIST library. Download zip file from NIST
+#' site, copy all files to "MSSEARCH" directory and add the following line to
+#' your .Rprofile: \code{options(msdialhelpers_mspepsearch_path =
+#' "/path/to/MSPepSearch64.exe")}
 #'
 #' Tested with MSPepSearch64 v2019_02_22.
-#' @param spec mass spectrum: matrix or dataframe with m/z and intensity in the first two columns, or a list of matrices
-#' @param searchtype one of "I" (identity, default), "Q" (quick identity), "S" (simple similarity),
-#' "H" (hybrid similarity), "L" (neutral loss similarity), "M" (ms/ms in EI library),
-#' "P" (peptide ms/ms search in a ms/ms library (use peak annotations and weighting), "G" (generic ms/ms search in a ms/ms library (no peak annotations or weighting used))
-#' @param presearchtype one of "d" (standard (use pre-indexed peaks); default), "s" (sequential (compare to all library spectra)),
-#' "f" (fast presearch (use pre-indexed peaks)), "m" (precursor ion m/z within precursor ion uncertainty - only for MS/MS search (P or G))
+#' @param spec mass spectrum: matrix or dataframe with m/z and intensity in the
+#'   first two columns, or a list of matrices
+#' @param searchtype one of "I" (identity, default), "Q" (quick identity), "S"
+#'   (simple similarity), "H" (hybrid similarity), "L" (neutral loss
+#'   similarity), "M" (ms/ms in EI library), "P" (peptide ms/ms search in a
+#'   ms/ms library (use peak annotations and weighting), "G" (generic ms/ms
+#'   search in a ms/ms library (no peak annotations or weighting used))
+#' @param presearchtype one of "d" (standard (use pre-indexed peaks); default),
+#'   "s" (sequential (compare to all library spectra)), "f" (fast presearch (use
+#'   pre-indexed peaks)), "m" (precursor ion m/z within precursor ion
+#'   uncertainty - only for MS/MS search (P or G))
 #' @param hits how many hits to return
-#' @param extralibs libraries to use in addition to 'mainlib' and 'replib'; check "MSSEARCH" directory for further libraries that may be installed
+#' @param extralibs libraries to use in addition to 'mainlib' and 'replib';
+#'   check "MSSEARCH" directory for further libraries that may be installed
 #' @param ri_obs measured retention index (RI)
 #' @param max_ri_dev passed to \code{scoreRI()}
 #' @param ri_minscore minimum RI score; passed to \code{scoreRI()}
 #' @param mzlimits set m/z limits for spectral comparison
-#' @param localRdata attach meta data from local .rda (path to .rda or object already loaded in workspace)
-#' @param .debug if TRUE keep temporary files created by MSPepSearch  
+#' @param localRdata attach meta data from local .rda (path to .rda or object
+#'   already loaded in workspace)
+#' @param .debug if TRUE keep temporary files created by MSPepSearch
 #' @return data.frame
 #' @export
 #'

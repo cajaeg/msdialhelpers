@@ -1,7 +1,9 @@
 #' Import MS-DIAL console results
-#' 
+#'
 #' Import '.msdial' files created by MS-DIAL console app.
-#' @param txtfile .msdial file for individual MS files. Use \code{\link{loadAlignmentResults}()} to import alignment results for multiple files.
+#' @param txtfile .msdial file for individual MS files. Use
+#'   \code{\link{loadAlignmentResults}()} to import alignment results for
+#'   multiple files.
 #' @return data.frame
 #' @export
 #'

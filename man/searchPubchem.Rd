@@ -13,15 +13,21 @@ searchPubchem(
 \arguments{
 \item{x}{data.frame}
 
-\item{in_column}{name of column containing InChIKey's. Can be "NISTres" in which case query is performed on a previous NIST search result.}
+\item{in_column}{name of column containing InChIKey's. Can be "NISTres" in
+which case query is performed on a previous NIST search result.}
 
-\item{cache_file}{full path of results cache file or 'NULL' to disable caching}
+\item{cache_file}{full path of results cache file or 'NULL' to disable
+caching}
 }
 \value{
 data.frame
 }
 \description{
-Query Pubchem for compound metadata using the webchem package. A cache file is used to store obtained results for subsequent queries.
+Query Pubchem for compound metadata using the webchem package. A cache file
+is used to store obtained results for subsequent queries. The function (1)
+translates supplied InChIKeys to Pubchem CIDs and (2) queries PubChem for
+compound details for these CIDs. Currently, PubChem 'Synonyms', 'Properties',
+'Uses' and 'Toxicity' sections are retrieved.
 }
 \examples{
 \dontrun{

@@ -1,9 +1,15 @@
 #' Add PubChem metadata to MS-DIAL alignment results
 #'
-#' Query Pubchem for compound metadata using the webchem package. A cache file is used to store obtained results for subsequent queries.
+#' Query Pubchem for compound metadata using the webchem package. A cache file
+#' is used to store obtained results for subsequent queries. The function (1)
+#' translates supplied InChIKeys to Pubchem CIDs and (2) queries PubChem for
+#' compound details for these CIDs. Currently, PubChem 'Synonyms', 'Properties',
+#' 'Uses' and 'Toxicity' sections are retrieved.
 #' @param x data.frame
-#' @param in_column name of column containing InChIKey's. Can be "NISTres" in which case query is performed on a previous NIST search result.
-#' @param cache_file full path of results cache file or 'NULL' to disable caching
+#' @param in_column name of column containing InChIKey's. Can be "NISTres" in
+#'   which case query is performed on a previous NIST search result.
+#' @param cache_file full path of results cache file or 'NULL' to disable
+#'   caching
 #' @return data.frame
 #' @export
 #' @importFrom rlang .data
@@ -16,13 +22,6 @@
 searchPubchem <- function(x,
                           in_column = c("inchikey", "NISTres")[1],
                           cache_file = "~/pubchem_cache.rda") {
-  ## extract unique inchikeys from NIST results
-  ## translate inchikeys into (unique) Pubchem CID's
-  ## get Pubchem synonym names for CIDs
-  ## get Pubchem properties for CIDs
-  ## get Pubchem 'Uses' and 'Toxicity' sections
-  ## attach all Pubchem data to 'NISTres'
-  ##
   ## extract unique inchikeys from NIST results
   stopifnot(in_column %in% colnames(x))
   if (in_column == "NISTres") {
