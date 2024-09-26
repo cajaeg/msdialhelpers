@@ -1,10 +1,13 @@
-#' Prepare spectra for annotation process
+#' Prepare spectra for annotation
 #'
-#' This function converts text-encoded spectra to data.frame objects, applies an intensity threshold and adds data.frame columns needed for annotation.
-#' @param x MS-DIAL results table as obtained by \code{\link{loadAlignmentResults}()} or \code{\link{loadConsoleResults}()}
-#' @param in_column name of column to be converted, e.g. "ms1" (default), "ms2", or "spectrum"
+#' Convert spectra from character vector to data.frame representation, apply an intensity threshold and
+#' add some columns to the data.frame for annotation.
+#' @param x MS-DIAL results table as obtained by
+#'   \code{\link{loadAlignmentResults}()} or \code{\link{loadConsoleResults}()}
+#' @param in_column name of column to be converted, e.g. "ms1" (default), "ms2",
+#'   or "spectrum"
 #' @param out_column name of column containing the prepared spectra
-#' @param relthr relative intensity threshold to be applied to each spectrum
+#' @param intrel relative intensity threshold to be applied to each spectrum
 #' @return data.frame
 #' @export
 #'
@@ -15,7 +18,9 @@
 #' dat <- prepareSpectra(dat, in_column = "spectrum")
 #' head(dat$s[[1]])
 #' plot(dat$s[[1]][,1:2], type = "h")
-prepareSpectra <- function(x, in_column = "ms1", out_column = "s", relthr = 0.001) {
+#' 
+#' also see ?loadAlignmentResults
+prepareSpectra <- function(x, in_column = "ms1", out_column = "s", intrel = 0.001) {
   stopifnot(inherits(x, c("matrix", "data.frame", "tbl", "tbl_df")))
   stopifnot(in_column %in% colnames(x))
   s_chr <- x[[in_column]]
@@ -25,7 +30,7 @@ prepareSpectra <- function(x, in_column = "ms1", out_column = "s", relthr = 0.00
     return(x)
   })
   s_mat <- lapply(s_mat, function(x) {
-    x[ x[,"i"] >= max(x[,"i"]) * relthr, ]
+    x[ x[,"i"] >= max(x[,"i"]) * intrel, ]
     return(x)
   })
   s_df <- lapply(s_mat, as.data.frame, stringsAsFactors = FALSE)

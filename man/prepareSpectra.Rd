@@ -2,24 +2,27 @@
 % Please edit documentation in R/prepareSpectra.r
 \name{prepareSpectra}
 \alias{prepareSpectra}
-\title{Prepare spectra for annotation process}
+\title{Prepare spectra for annotation}
 \usage{
-prepareSpectra(x, in_column = "ms1", out_column = "s", relthr = 0.001)
+prepareSpectra(x, in_column = "ms1", out_column = "s", intrel = 0.001)
 }
 \arguments{
-\item{x}{MS-DIAL results table as obtained by \code{\link{loadAlignmentResults}()} or \code{\link{loadConsoleResults}()}}
+\item{x}{MS-DIAL results table as obtained by
+\code{\link{loadAlignmentResults}()} or \code{\link{loadConsoleResults}()}}
 
-\item{in_column}{name of column to be converted, e.g. "ms1" (default), "ms2", or "spectrum"}
+\item{in_column}{name of column to be converted, e.g. "ms1" (default), "ms2",
+or "spectrum"}
 
 \item{out_column}{name of column containing the prepared spectra}
 
-\item{relthr}{relative intensity threshold to be applied to each spectrum}
+\item{intrel}{relative intensity threshold to be applied to each spectrum}
 }
 \value{
 data.frame
 }
 \description{
-This function converts text-encoded spectra to data.frame objects, applies an intensity threshold and adds data.frame columns needed for annotation.
+Convert spectra from character vector to data.frame representation, apply an intensity threshold and
+add some columns to the data.frame for annotation.
 }
 \examples{
 fp <- system.file("extdata/MSDconsole_single_result.msdial", package = "msdialhelpers")
@@ -28,4 +31,6 @@ colnames(dat) # spectrum column is 'spectrum'
 dat <- prepareSpectra(dat, in_column = "spectrum")
 head(dat$s[[1]])
 plot(dat$s[[1]][,1:2], type = "h")
+
+also see ?loadAlignmentResults
 }

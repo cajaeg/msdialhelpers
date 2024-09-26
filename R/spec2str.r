@@ -1,6 +1,6 @@
 #' Convert mass spectrum from character to matrix representation
 #'
-#' @param x character string encoding mass spectra, e.g. "100:999 101:121"
+#' @param x mass spectrum represented as character string, e.g. "100:999 101:121"
 #' @param colnames column names in resulting data.frame (default \code{c("mz",
 #'   "i")})
 #'
@@ -19,6 +19,19 @@ str2spec <- function (x, colnames = c("mz", "i"))
   base::colnames(out) <- colnames
   return(out)
 }
+
+
+#' Extract m/z portion of MS character string representation
+#'
+#' @param x character string
+#' @param split character vector
+#'
+#' @return numeric vector of m/z values
+#'
+str2mz <- function(x, split = " ") {
+  as.numeric(unlist(strsplit(x, split)[[1]]))
+}
+
 
 #' Convert mass spectrum from matrix to character representation
 #'

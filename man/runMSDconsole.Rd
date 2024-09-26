@@ -8,49 +8,61 @@ runMSDconsole(
   msdir,
   analysis_type = c("gcms", "lcmsdda", "lcmsdia", "lcimmsdda", "lcimmsdia")[1],
   method = createMSDCmethod(),
-  MSDCexe = getOption("msdialhelpers_msdialconsole_path"),
   readResults = TRUE,
   skipRun = FALSE,
   verbose = TRUE
 )
 }
 \arguments{
-\item{msdir}{directory holding MS files supported by MS-DIAL (.abf, .mzML, .mzXML, .cdf etc.)}
+\item{msdir}{directory holding MS files supported by MS-DIAL (.abf, .mzML,
+.mzXML, .cdf etc.)}
 
-\item{analysis_type}{one of "gcms", "lcmsdda", "lcmsdia", "lcimmsdda", "lcimmsdia"}
+\item{analysis_type}{one of "gcms", "lcmsdda", "lcmsdia", "lcimmsdda",
+"lcimmsdia"}
 
-\item{method}{list of parameters as returned by \code{\link{createMSDCmethod}()} or name of MS-DIAL method file (.txt)}
+\item{method}{list of parameters as returned by
+\code{\link{createMSDCmethod}()} or, alternatively, name of existing
+MS-DIAL method file (.txt)}
 
-\item{MSDCexe}{full path of MS-DIAL console executable (MsdialConsoleApp.exe)}
-
-\item{readResults}{read .msdial using \code{\link{loadConsoleResults}()} or \code{\link{loadAlignmentResults}()}}
+\item{readResults}{read .msdial using \code{\link{loadConsoleResults}()} or
+\code{\link{loadAlignmentResults}()}}
 
 \item{skipRun}{don't run MS-DIAL console, just read existing .msdial files}
 
 \item{verbose}{show output of MS-DIAL console}
 }
 \value{
-list of data.frame's containing MS-DIAL results or vector of .msdial files, depending on 'readResults'
+list of data.frame's containing MS-DIAL results or vector of .msdial
+files, depending on 'readResults'
 }
 \description{
-Trigger MS-DIAL console process
+Add \code{options(msdialhelpers_msdialconsole_path = "~/LocalApps/MSDIAL
+ver.4.9.221218 Windowsx64/MsdialConsoleApp.exe")} (adjusted to the actual
+path of MsdialConsoleApp.exe) to your .Rprofile file. Use
+\code{Sys.getenv("R_USER")} to check where this file is located on your system.
 }
 \examples{
 \dontrun{
-mzml_files <- list.files(system.file("extdata", package = "msdialhelpers"), 
-  "GC-QTOF.*\\\\.mzML", 
+mzml_files <- list.files(system.file("extdata", package = "msdialhelpers"),
+  "GCQTOF_PAH.*\\\\.mzML",
   full.names = TRUE)
-msdir <- "~/MSDCtest"
-dir.create(msdir)
-file.copy(mzml_files, msdir)
-(resfiles <- runMSDconsole(msdir))
-peaks <- loadConsoleResults(resfiles[2])
-aligned <- loadAlignmentResults(resfiles[1])
+workdir <- tempfile()
+dir.create(workdir)
+file.copy(mzml_files, workdir)
+(result_files <- runMSDconsole(workdir))
+peaks <- loadConsoleResults(result_files[[2]])
+aligned <- loadAlignmentResults(result_files[[1]])
 }
 
 ## use a custom method file
 \dontrun{
-(resfiles <- runMSDconsole(msdir, method = createMSDCmethod(minimum_peak_height = 5000)))
-peaks <- loadConsoleResults(resfiles[2])
+msdc_method <- createMSDCmethod(minimum_peak_height = 10000)
+(result_files <- runMSDconsole(workdir, method = msdc_method)
+peaks <- loadConsoleResults(resfiles[[2]])
+}
+
+## clean up temporary folder
+\dontrun{
+unlink(workdir, recursive = TRUE, force = TRUE)
 }
 }

@@ -12,26 +12,80 @@ loadAlignmentResults(
 )
 }
 \arguments{
-\item{txt}{Alignment results file ("Height.txt" or "Area.txt")}
+\item{txt}{Alignment results file, i.e. "Height.txt" or "Area.txt"}
 
-\item{raw_folder}{Location of raw data. If given, file paths of raw data will be attached to \code{attr(x, "msdial_sam")}.}
+\item{raw_folder}{Location of raw data. If given, file paths of raw data will
+be attached to \code{attr(x, "msdial_sam")}.}
 
-\item{raw_suffix}{File type of raw data. Adjust this when file type differs from 'mzML'. Only relevant when 'raw_folder' is given.}
+\item{raw_suffix}{File type of raw data. Adjust this when file type differs
+from 'mzML'. Only relevant when 'raw_folder' is given.}
 
-\item{sample_names}{Optional character vector to use instead of original column names. No check for proper order is performed.}
+\item{sample_names}{Optional character vector to use instead of original
+column names. No check for proper order is performed.}
 }
 \value{
-data.frame with two attributes attached: "msdial_sam" and "intensity_columns".
+data.frame with two attributes attached: "msdial_sam" and
+"intensity_columns".
 
-\code{attr(x, "msdial_sam")} is derived from the file header and contains sample class information as defined in MS-DIAL.
+\code{attr(x, "msdial_sam")} is derived from the file header and contains
+sample class information as defined in MS-DIAL.
 
-\code{attr(x, "intensity_columns")} is an index of columns holding MS intensities (sample columns).
+\code{attr(x, "intensity_columns")} is an index of columns holding MS
+intensities (sample columns).
 }
 \description{
-Read "Height.txt" or "Area.txt" files obtained by running "Export -> Alignment result" in MS-DIAL. Supports file format created by MS-DIAL versions >= 4.0.
+Read "Height.txt" or "Area.txt" files obtained by running "Export ->
+Alignment result" in MS-DIAL. Supports file format created by MS-DIAL
+versions >= 4.0.
 }
 \examples{
-fp <- system.file("extdata/MSDIAL_Alignment_result_GC-MS.txt", package = "msdialhelpers")
-aligned <- loadAlignmentResults(fp)
+# basic use
+fp <- system.file("extdata", package = "msdialhelpers")
+txt_file <- file.path(fp, "MSDIAL_Alignment_result_GCQTOF.txt")
+aligned <- loadAlignmentResults(txt_file)
 head(aligned)
+
+# locate peak intensity columns
+int_columns <- attr(aligned, "intensity_columns")
+int_med <- apply(aligned[, int_columns], 1, median)
+hist(log10(int_med))
+
+# match raw mzML files to sample columns
+aligned <- loadAlignmentResults(txt_file, raw_folder = fp)
+msdial_sam <- attr(aligned, "msdial_sam")
+colnames(aligned)[int_columns] == sub(".mzML", "", basename(msdial_sam$raw_file))
+
+# add XICs for all peaks (e.g. for QC)
+xraw <- loadRaws(msdial_sam$raw_file)
+library(dplyr)
+aligned2 <- aligned \%>\%
+  as_tibble() \%>\%
+  prepareSpectra() \%>\%
+  addXICs(xraw = xraw)
+
+flt <- 2 # plot compound of interest
+plotXIC(aligned2$bpc[[flt]], main = aligned2$metabolite_name[flt])
+plotXIC(aligned2$bpc[[flt]] \%>\% scaleXIC("by_file"), main = aligned2$metabolite_name[flt])
+
+par(mfrow = n2mfrow(nrow(aligned2)), mar = c(2,2,1,0)+0.1, mgp = c(1.1, 0.1, 0), tck = 0.01)
+plotXIC(lapply(aligned2$bpc, "[[", 1)) # QC panel for all compounds (file 1)
+
+# send spectra to MSPepSearch for identification
+# needs MSPepSearch to be correctly configured, see ?MSPepSearch
+\dontrun{
+aligned3 <- aligned2 \%>\% 
+  runNISTsearch(ri_column = NULL)
+}
+  
+# dto., with retention index data
+alkane_dict <- loadAlkanes(file.path(fp, "Alkane.txt"))
+aligned4 <- aligned3 \%>\% 
+  mutate(average_ri = rt2ri(average_rt_min, ref = alkane_dict)) \%>\% 
+  runNISTsearch(ri_column = "average_ri")
+
+# compile spectral match results into new table
+identified <- aligned4 \%>\% 
+  group_by(alignment_id) \%>\% 
+  reframe(NISTres[[1]])
+head(identified)
 }

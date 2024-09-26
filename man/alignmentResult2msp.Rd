@@ -15,11 +15,13 @@ alignmentResult2msp(
 \arguments{
 \item{x}{alignment result data.frame as imported by loadAlignmentResult()}
 
-\item{intabs}{intensity threshold applied to mass spectra (PEAKS field in the resulting msp)}
+\item{intabs}{intensity threshold applied to mass spectra (PEAKS field in the
+resulting msp)}
 
-\item{makeNamesUnique}{apply a make.unique() to the spectra names (recommended)}
+\item{makeNamesUnique}{apply a make.unique() to the spectra names
+(default)}
 
-\item{digits}{decimal digits to round to (m/z, intensity)}
+\item{digits}{numeric(2) giving decimal digits to round m/z and intensity values to}
 
 \item{...}{(currently unused)}
 }
@@ -30,7 +32,7 @@ data.frame
 Create a new MSP library from MS-DIAL alignment results
 }
 \examples{
-fp <- system.file("extdata/MSDIAL_Alignment_result_GC-MS.txt", package = "msdialhelpers")
+fp <- system.file("extdata/MSDIAL_Alignment_result_GCQTOF.txt", package = "msdialhelpers")
 aligned <- loadAlignmentResults(fp)
 flt <- aligned$metabolite_name != "Unknown" # restrict to identified compounds
 aligned <- aligned[flt, ]

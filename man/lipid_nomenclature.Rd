@@ -3,7 +3,7 @@
 \docType{data}
 \name{lipid_nomenclature}
 \alias{lipid_nomenclature}
-\title{Lipid nomenclature used by MSDIAL}
+\title{Lipid nomenclature used by MS-DIAL}
 \format{
 data.frame
 }
@@ -11,6 +11,6 @@ data.frame
 data(lipid_nomenclature)
 }
 \description{
-Data.frame giving details for lipid class abbreviations occurring in MSDIAL results.
+Data.frame giving details for lipid class abbreviations occurring in MS-DIAL results.
 }
 \keyword{datasets}

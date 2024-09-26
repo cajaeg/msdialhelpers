@@ -1,7 +1,7 @@
 Package: msdialhelpers
 Type: Package
 Title: R functions supporting mass spectrometric data analysis with MS-DIAL and MS-FINDER
-Version: 0.4.0
+Version: 0.4.1
 Authors@R: 
   person("Carsten", "Jaeger", 
   email = "cajaeg@outlook.de", 
@@ -19,6 +19,8 @@ Imports:
   plyr,
   HiResTEC,
   webchem,
+  enviPat,
+  xcms,
   rlang,
   dplyr,
   purrr,
@@ -26,3 +28,4 @@ Imports:
   tidyr,
   tidyselect
 Suggests: 
+  fastcluster

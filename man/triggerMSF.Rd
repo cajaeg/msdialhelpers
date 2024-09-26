@@ -2,27 +2,31 @@
 % Please edit documentation in R/MSFINDER.r
 \name{triggerMSF}
 \alias{triggerMSF}
-\title{Trigger MSFINDER desktop process}
+\title{Trigger MS-FINDER process (desktop app)}
 \usage{
 triggerMSF(matpath, MSFINDER_path = getOption("msdialhelpers_msfinder_exe"))
 }
 \arguments{
 \item{matpath}{Path containing .mat files.}
 
-\item{MSFINDER_path}{Full path of 'MSFINDER.exe' file. Uses option 'msdialhelpers_msfinder_exe' if set. Add \code{options(msdialhelpers_msfinder_exe = "/path/to/MSFINDER.exe")} or similar to '~/.Rprofile' to customize. Use \code{Sys.getenv("R_USER")} to check where this file is located on Windows.}
+\item{MSFINDER_path}{Full path of 'MSFINDER.exe' file. Uses option
+'msdialhelpers_msfinder_exe' if set. Add
+\code{options(msdialhelpers_msfinder_exe = "/path/to/MSFINDER.exe")} or
+similar to '~/.Rprofile' to customize. Use \code{Sys.getenv("R_USER")} to
+check where this file is located on Windows.}
 }
 \value{
 \code{TRUE} if process was spawned successfully
 }
 \description{
-Trigger MSFINDER desktop process
+Trigger MS-FINDER process (desktop app)
 }
 \examples{
 \dontrun{
 matpath <- "~/MATtmp"
 dir.create(matpath)
-file.copy(list.files(system.file("extdata/MSFINDER", package="msdialhelpers"), 
-  "*.mat", 
+file.copy(list.files(system.file("extdata/MSFINDER", package = "msdialhelpers"),
+  "*.mat",
   full = TRUE), matpath)
 triggerMSF(matpath) # works only if MSFINDER_path is set correctly
 }

@@ -1,6 +1,6 @@
-#' Lipid nomenclature used by MSDIAL
+#' Lipid nomenclature used by MS-DIAL
 #'
-#' Data.frame giving details for lipid class abbreviations occurring in MSDIAL results.
+#' Data.frame giving details for lipid class abbreviations occurring in MS-DIAL results.
 #'
 #' @format data.frame
 #' @docType data
