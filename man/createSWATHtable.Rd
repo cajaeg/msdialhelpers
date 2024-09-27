@@ -2,7 +2,7 @@
 % Please edit documentation in R/createSWATHtable.r
 \name{createSWATHtable}
 \alias{createSWATHtable}
-\title{Create an "MS-DIAL experiment information" file required for SWATH/MS^E data processing}
+\title{Create an "MS-DIAL experiment information" file required for SWATH/MS^E data}
 \usage{
 createSWATHtable(
   mzrange = c(50, 500),
@@ -18,41 +18,46 @@ createSWATHtable(
 
 \item{winwidth}{SWATH window width (Da)}
 
-\item{ms2range}{m/z range to create SWATH windows for, usually identical to \code{mzrange}}
+\item{ms2range}{m/z range to create SWATH windows for, often identical to
+\code{mzrange}}
 
-\item{spectra_rate}{Only used to calculate accumulation time (\code{attr(out, "acc_time")})}
+\item{spectra_rate}{Only used to calculate accumulation time (\code{attr(out,
+"acc_time")})}
 
 \item{ms1_acq_factor}{Increase accumulation time for MS1 scan by this factor}
 
-\item{outfile}{If non-NULL, divert output to text file that can be used as MS-DIAL experiment information file}
+\item{outfile}{If non-NULL, divert output to text file that can be used as
+MS-DIAL experiment information file}
 }
 \value{
-Data frame, with additional attributes "cycle_time", "acc_time" (accumulation time) and "bruker_mrm_table". The latter can serve as template in Bruker DataAcquisition.
+data.frame, with additional attributes "cycle_time", "acc_time"
+(accumulation time) and "bruker_mrm_table". The latter can serve as
+template in Bruker DataAcquisition.
 }
 \description{
-Create an "MS-DIAL experiment information" file required for SWATH/MS^E data processing
+Create an "MS-DIAL experiment information" file required for SWATH/MS^E data
 }
 \examples{
 createSWATHtable()
 \dontrun{
-createSWATHtable(outfile="MSDIAL_exp_info.txt")
+createSWATHtable(outfile = "MSDIAL_exp_info.txt")
 }
 out <- createSWATHtable(c(50, 600))
 out
 attr(out, "cycle_time")
 attr(out, "acc_time")
 attr(out, "bruker_mrm_table")
-createSWATHtable(c(50, 500), 
-  winwidth = 25, 
-  ms1_acq_factor = 1.67, 
+createSWATHtable(c(50, 500),
+  winwidth = 25,
+  ms1_acq_factor = 1.67,
   spectra_rate = 30) # reproduce HILIC SWATH scheme from Tsugawa et al. 2015 (cycle time 640 ms)
-createSWATHtable(c(100, 1250), 
-  winwidth = 21, 
-  ms1_acq_factor = 10, 
+createSWATHtable(c(100, 1250),
+  winwidth = 21,
+  ms1_acq_factor = 10,
   spectra_rate = 90) # reproduce lipid SWATH scheme (cycle time 730 ms)
-createSWATHtable(c(100, 1250), 
-  winwidth = 25, 
-  ms2range = c(350, 1250), 
-  ms1_acq_factor = 5, 
+createSWATHtable(c(100, 1250),
+  winwidth = 25,
+  ms2range = c(350, 1250),
+  ms1_acq_factor = 5,
   spectra_rate = 50) # compromise for Impact II (max scan rate=50)
 }

@@ -1,4 +1,4 @@
-#' Export an MSP library file
+#' Export MSP library file
 #'
 #' @param x data.frame to be exported as MSP
 #' @param file MSP file to be written

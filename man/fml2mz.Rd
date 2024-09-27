@@ -2,7 +2,7 @@
 % Please edit documentation in R/fml2mz.R
 \name{fml2mz}
 \alias{fml2mz}
-\title{Calculate m/z from chemical formula}
+\title{Calculate m/z from chemical formula and adduct}
 \usage{
 fml2mz(x, adduct = NULL, round = 4)
 }
@@ -17,9 +17,10 @@ fml2mz(x, adduct = NULL, round = 4)
 data.frame
 }
 \description{
-Calculate m/z from chemical formula
+Calculate m/z from chemical formula and adduct
 }
 \examples{
 fml2mz("C6H6O", "[M]+") # (radical) cation
 fml2mz("C6H6O") # neutral mass
+fml2mz("C3H7NO2", c("[M+H]+", "[M-H]-")) # (de)protonated ion
 }

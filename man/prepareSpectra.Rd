@@ -4,7 +4,12 @@
 \alias{prepareSpectra}
 \title{Prepare spectra for annotation}
 \usage{
-prepareSpectra(x, in_column = "ms1", out_column = "s", intrel = 0.001)
+prepareSpectra(
+  x,
+  in_column = c("ms1", "spectrum"),
+  out_column = "s",
+  intrel = 0.001
+)
 }
 \arguments{
 \item{x}{MS-DIAL results table as obtained by
@@ -32,5 +37,5 @@ dat <- prepareSpectra(dat, in_column = "spectrum")
 head(dat$s[[1]])
 plot(dat$s[[1]][,1:2], type = "h")
 
-also see ?loadAlignmentResults
+# also see ?loadAlignmentResults
 }

@@ -6,17 +6,16 @@
 #' \code{Sys.getenv("R_USER")} to check where this file is located on your system.
 #' @param msdir directory holding MS files supported by MS-DIAL (.abf, .mzML,
 #'   .mzXML, .cdf etc.)
-#' @param analysis_type one of "gcms", "lcmsdda", "lcmsdia", "lcimmsdda",
+#' @param analysis_type one of "gcms" (default), "lcmsdda", "lcmsdia", "lcimmsdda",
 #'   "lcimmsdia"
 #' @param method list of parameters as returned by
 #'   \code{\link{createMSDCmethod}()} or, alternatively, name of existing
-#'   MS-DIAL method file (.txt)
-#' @param readResults read .msdial using \code{\link{loadConsoleResults}()} or
-#'   \code{\link{loadAlignmentResults}()}
+#'   MS-DIAL method file (.txt). 
+#' @param readResults import results files after processing
 #' @param skipRun don't run MS-DIAL console, just read existing .msdial files
 #' @param verbose show output of MS-DIAL console
-#' @return list of data.frame's containing MS-DIAL results or vector of .msdial
-#'   files, depending on 'readResults'
+#' @return List of data.frame's containing MS-DIAL results, or a vector of file names
+#'   for 'readResults' == FALSE
 #' @export
 #'
 #' @examples
@@ -27,15 +26,16 @@
 #' workdir <- tempfile()
 #' dir.create(workdir)
 #' file.copy(mzml_files, workdir)
-#' (result_files <- runMSDconsole(workdir))
-#' peaks <- loadConsoleResults(result_files[[2]])
-#' aligned <- loadAlignmentResults(result_files[[1]])
+#' full_results <- runMSDconsole(workdir)
+#' alignment_results <- full_results[[1]]
+#' # check ?loadAlignmentsResults for examples of further processing these results
+#' cleanMSDfiles(workdir, ask = FALSE)
 #' }
 #'
 #' ## use a custom method file
 #' \dontrun{
 #' msdc_method <- createMSDCmethod(minimum_peak_height = 10000)
-#' (result_files <- runMSDconsole(workdir, method = msdc_method)
+#' (result_files <- runMSDconsole(workdir, method = msdc_method, readResults = FALSE)
 #' peaks <- loadConsoleResults(resfiles[[2]])
 #' }
 #'

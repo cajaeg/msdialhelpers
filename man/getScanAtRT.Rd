@@ -17,7 +17,8 @@ getScanAtRT(xraw, rt, ...)
 data.frame
 }
 \description{
-Wrapper for \code{\link[xcms]{getScan}()} accepting a list of \code{xcmsRaw}'s
+Wrapper for \code{\link[xcms]{getScan}()} accepting a retention time and a
+list of \code{xcmsRaw}'s
 }
 \examples{
  mzml_files <- list.files(system.file("extdata", package = "msdialhelpers"),

@@ -1,4 +1,4 @@
-#' Extract ion chromatograms (BPC, EIC, TIC)
+#' Extract chromatograms
 #'
 #' Wrapper for \code{\link[HiResTEC]{getMultipleBPC}()} accepting lists of
 #' 'xcmsRaw' objects.
@@ -11,7 +11,7 @@
 #' @param rt_dev RT window
 #' @param zeroVal value to use for intensities <= 0 (typically NA or 0)
 #' @param smooth window size for moving average smoother, 0 = no smoothing
-#' @param EIC if 'TRUE' return (sum-based) EIC instead of (maximum-based) BPC
+#' @param EIC if 'TRUE' return a (sum-based) EIC instead of a (maximum-based) BPC
 #'
 #' @return A matrix with scan wise (rows) intensities for all requested m/z's
 #'   (columns), or a list of such matrices.
@@ -22,21 +22,25 @@
 #' "GCQTOF_PAH.*\\.mzML", full.names = TRUE)
 #' xraw <- loadRaws(mzml_files)
 #'
-#' tic <- getXIC(xraw, EIC = TRUE) # total ion chromatogram (TIC)
-#' plotXIC(tic)
+#' # total ion chromatogram (TIC)
+#' tic <- getChrom(xraw, EIC = TRUE) 
+#' plotChrom(tic)
 #'
-#' bpc <- getXIC(xraw, EIC = FALSE) # full-range base peak chromatogram (BPC)
-#' plotXIC(bpc)
+#' # full-range base peak chromatogram (BPC) 
+#' bpc <- getChrom(xraw, EIC = FALSE) 
+#' plotChrom(bpc)
 #'
-#' xic <- getXIC(xraw, mz = c(202.078, 101.042), mz_dev = 0.005, rt = 20*60, rt_dev = 1*60)
-#' plotXIC(xic)
+#' # extracted ion chromatogram (XIC)
+#' xic <- getChrom(xraw, mz = c(202.078, 101.042), mz_dev = 0.005, rt = 20*60, rt_dev = 1*60)
+#' plotChrom(xic)
 #'
 #' par(mfrow = c(1,2))
-#' plotXIC(xic, set.mfrow = FALSE) # override default multi-figure layout
+#' plotChrom(xic, set.mfrow = FALSE) # override default multi-figure layout
 #' 
-#' xic_scaled <- scaleXIC(xic, scope = "by_file")
-#' plotXIC(xic_scaled)
-getXIC <- function(xraw,
+#' # change scope for scaling
+#' xic_scaled <- scaleChrom(xic, scope = "by_file")
+#' plotChrom(xic_scaled)
+getChrom <- function(xraw,
                    mz = NULL,
                    mz_dev = 0.01,
                    rt = NULL,
@@ -56,7 +60,7 @@ getXIC <- function(xraw,
     flt <- sapply(xraw, inherits, "xcmsRaw")
     out <- vector("list", .n)
     for (i in which(flt)) {
-      out[[i]] <- getXIC(
+      out[[i]] <- getChrom(
         xraw[[i]],
         mz = mz,
         mz_dev = mz_dev,

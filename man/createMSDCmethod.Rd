@@ -15,8 +15,8 @@ createMSDCmethod(
   mass_range_end = 1000,
   number_of_threads = 1,
   smoothing_method = "LinearWeightedMovingAverage",
-  smoothing_level = 3,
-  average_peak_width = 20,
+  smoothing_level = 2,
+  average_peak_width = 30,
   minimum_peak_height = 1000,
   mass_slice_width = 0.1,
   mass_accuracy = 0.025,
@@ -64,9 +64,9 @@ createMSDCmethod(
 
 \item{smoothing_method}{"LinearWeightedMovingAverage"}
 
-\item{smoothing_level}{3}
+\item{smoothing_level}{2}
 
-\item{average_peak_width}{20}
+\item{average_peak_width}{30}
 
 \item{minimum_peak_height}{1000}
 

@@ -1,8 +1,10 @@
 #' Load MS raw data
 #'
-#' Wrapper for \code{\link[xcms]{xcmsRaw}()} accepting multiple MS files and optionally applying an intensity filter.
+#' Wrapper for \code{\link[xcms]{xcmsRaw}()} accepting multiple MS files and
+#' optionally applying an intensity filter.
 #' @param msfiles mz(X)ML files to load
-#' @param profstep profile matrix step size parameter used by \code{\link[xcms]{xcmsRaw}()}
+#' @param profstep profile matrix step size parameter used by
+#'   \code{\link[xcms]{xcmsRaw}()}
 #' @param minabs absolute intensity threshold
 #' @param ... further arguments passed to \code{\link[xcms]{xcmsRaw}()}
 #'
@@ -37,6 +39,7 @@ loadRaws <- function(msfiles,
 #' @param verbose print diagnostic message
 #'
 #' @return 'xcmsRaw'
+#' @noRd
 #'
 #' @examples
 #' # see \code{\link{loadRaws}()}
@@ -99,6 +102,7 @@ filterXcmsRaw <- function(xraw,
 #' @param ... further arguments passed to \code{\link[xcms]{xcmsRaw}()}
 #'
 #' @return 'xcmsRaw'
+#' @noRd
 #'
 #' @examples
 #' # see \code{\link{loadRaws}()}
@@ -107,7 +111,7 @@ loadXcmsRaw <- function(msfile,
                         minabs = 0,
                         ...) {
   if (is.character(msfile) && file.exists(msfile)) {
-    xraw <- xcms::xcmsRaw(msfile, profstep = profstep, ...)
+    xraw <- suppressPackageStartupMessages(xcms::xcmsRaw(msfile, profstep = profstep, ...))
     return(if (is.null(minabs) ||
                minabs == 0)
       xraw
@@ -121,13 +125,14 @@ loadXcmsRaw <- function(msfile,
 
 #' Get scan data for a given retention time
 #'
-#' Wrapper for \code{\link[xcms]{getScan}()} accepting a list of \code{xcmsRaw}'s 
+#' Wrapper for \code{\link[xcms]{getScan}()} accepting a retention time and a
+#' list of \code{xcmsRaw}'s
 #' @param xraw 'xcmsRaw' object or list of 'xcmsRaw' objects
 #' @param rt retention time in seconds
 #' @param ... passed to \code{\link[xcms]{getScan}()}
 #'
 #' @return data.frame
-#' @export 
+#' @export
 #'
 #' @examples
 #'  mzml_files <- list.files(system.file("extdata", package = "msdialhelpers"),

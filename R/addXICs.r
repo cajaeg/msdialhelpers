@@ -1,4 +1,4 @@
-#' Add extracted ion chromatograms (EIC, BPC) to alignment results
+#' Add extracted ion chromatograms to alignment results
 #'
 #' @param x data.frame as created by \code{\link{loadAlignmentResults}()}
 #' @param in_column name of column containing m/z's to extract: either a list of
@@ -7,14 +7,14 @@
 #' @param out_column name of column where results are
 #' @param xraw list of 'xcmsRaw' objects
 #' @param mz_dev width of m/z window to extract (passed to
-#'   \code{\link{getXIC}()})
+#'   \code{\link{getChrom}()})
 #' @param rt_dev width of RT window to extract (passed to
-#'   \code{\link{getXIC}()})
-#' @param zeroVal value to replace NA's by (passed to \code{\link{getXIC}()})
-#' @param smooth (passed to \code{\link{getXIC}()})
+#'   \code{\link{getChrom}()})
+#' @param zeroVal value to replace NA's by (passed to \code{\link{getChrom}()})
+#' @param smooth (passed to \code{\link{getChrom}()})
 #' @param max_mz restrict BPC extraction to the 'max_mz' highest peaks (if
 #'   'in_column' contains spectra)
-#' @param EIC if 'TRUE' return (sum-based) EIC instead of (maximum-based) BPC
+#' @param EIC if 'TRUE' add (sum-based) EICs instead of (maximum-based) BPCs
 #' @param .pivot_longer transform resulting BPC matrices to long format. Useful
 #'   for plotting with 'ggplot'.
 #' @return data.frame
@@ -22,20 +22,22 @@
 #'
 #' @examples
 #' # see ?loadAlignmentResults
-#' 
+#'
 addXICs <- function(x,
                     in_column = "s",
                     rt_column = c("average_rt_min", "rt_min"),
-                    out_column = "bpc",
+                    out_column = "xic",
                     xraw,
                     mz_dev = 0.01,
                     rt_dev = 10,
                     zeroVal = NA,
-                    smooth = 3,
-                    max_mz = 10,
+                    smooth = 0,
+                    max_mz = 5,
                     EIC = FALSE,
+                    .progress = FALSE,
                     .pivot_longer = FALSE) {
   stopifnot(in_column %in% colnames(x))
+  stopifnot(any(rt_column %in% colnames(x)))
   mz_col <- x[[in_column]]
   mz <- if (is.list(mz_col))
     # assume in_column holds a list of spectra
@@ -43,20 +45,23 @@ addXICs <- function(x,
       spec[order(-spec[, 2]), ][1:min(max_mz, nrow(spec)), ][, 1])
   else
     mz <- as.numeric(unlist(mz_col))
-  stopifnot(any(rt_column %in% colnames(x)))
   rt_column <- rt_column[which(rt_column %in% colnames(x))[1]]
   rt <- x[[rt_column]]
   out <- vector("list", nrow(x))
-  pb <- utils::txtProgressBar(min = 0,
-                              max = length(out),
-                              style = 3)
-  on.exit(close(pb))
+  if(.progress) {
+    pb <- utils::txtProgressBar(min = 0,
+                                max = length(out),
+                                style = 3)
+    on.exit(close(pb))
+  }
   for (i in 1:length(out)) {
-    utils::setTxtProgressBar(pb, i)
+    if(.progress) {
+      utils::setTxtProgressBar(pb, i)
+    }
     tmp <- vector("list", length(xraw))
     flt <- sapply(xraw, inherits, "xcmsRaw")
     for (j in seq_along(xraw)[flt]) {
-      tmp[[j]] <- getXIC(
+      tmp[[j]] <- getChrom(
         xraw[[j]],
         mz = mz[[i]],
         mz_dev = mz_dev,

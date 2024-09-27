@@ -1,10 +1,11 @@
-#' Lipid nomenclature used by MS-DIAL
+#' Lipid class hierarchy
 #'
-#' Data.frame giving details for lipid class abbreviations occurring in MS-DIAL results.
-#'
+#' Lipid class hierarchy used in MS-DIAL results
 #' @format data.frame
 #' @docType data
 #' @keywords datasets
 #' @name lipid_nomenclature
-#' @usage data(lipid_nomenclature)
+#' @usage 
+#'  data(lipid_nomenclature)
+#'  head(lipid_nomenclature)
 NULL

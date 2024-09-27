@@ -31,4 +31,5 @@ x <- abs(rnorm(100, 30, 15))
 g <- hcgroup(x, h = 5, useFastCluster = FALSE)
 g1 <- hcgroup(x, h = 5, useFastCluster = TRUE)
 identical(g, g1)
+plot(data.frame(x = x, y = 1), type = "h", col = g, ylim = c(0, 1))
 }

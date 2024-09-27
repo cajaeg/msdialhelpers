@@ -2,7 +2,7 @@
 % Please edit documentation in R/writeMSP.r
 \name{writeMSP}
 \alias{writeMSP}
-\title{Export an MSP library file}
+\title{Export MSP library file}
 \usage{
 writeMSP(x, file, append = FALSE, progress = FALSE)
 }
@@ -19,7 +19,7 @@ writeMSP(x, file, append = FALSE, progress = FALSE)
 None
 }
 \description{
-Export an MSP library file
+Export MSP library file
 }
 \examples{
 msp <- data.frame(

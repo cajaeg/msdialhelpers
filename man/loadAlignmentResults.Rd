@@ -2,7 +2,7 @@
 % Please edit documentation in R/loadAlignmentResults.r
 \name{loadAlignmentResults}
 \alias{loadAlignmentResults}
-\title{Import alignment results from MS-DIAL}
+\title{Import MS-DIAL alignment results}
 \usage{
 loadAlignmentResults(
   txt,
@@ -34,7 +34,7 @@ sample class information as defined in MS-DIAL.
 intensities (sample columns).
 }
 \description{
-Read "Height.txt" or "Area.txt" files obtained by running "Export ->
+Read "Height.txt" or "Area.txt" files as obtained by running "Export ->
 Alignment result" in MS-DIAL. Supports file format created by MS-DIAL
 versions >= 4.0.
 }
@@ -64,11 +64,11 @@ aligned2 <- aligned \%>\%
   addXICs(xraw = xraw)
 
 flt <- 2 # plot compound of interest
-plotXIC(aligned2$bpc[[flt]], main = aligned2$metabolite_name[flt])
-plotXIC(aligned2$bpc[[flt]] \%>\% scaleXIC("by_file"), main = aligned2$metabolite_name[flt])
+plotChrom(aligned2$xic[[flt]], main = aligned2$metabolite_name[flt])
+plotChrom(aligned2$xic[[flt]] \%>\% scaleChrom("by_file"), main = aligned2$metabolite_name[flt])
 
 par(mfrow = n2mfrow(nrow(aligned2)), mar = c(2,2,1,0)+0.1, mgp = c(1.1, 0.1, 0), tck = 0.01)
-plotXIC(lapply(aligned2$bpc, "[[", 1)) # QC panel for all compounds (file 1)
+plotChrom(lapply(aligned2$xic, "[[", 1)) # QC panel for all compounds (file 1)
 
 # send spectra to MSPepSearch for identification
 # needs MSPepSearch to be correctly configured, see ?MSPepSearch
@@ -78,6 +78,7 @@ aligned3 <- aligned2 \%>\%
 }
   
 # dto., with retention index data
+\dontrun{
 alkane_dict <- loadAlkanes(file.path(fp, "Alkane.txt"))
 aligned4 <- aligned3 \%>\% 
   mutate(average_ri = rt2ri(average_rt_min, ref = alkane_dict)) \%>\% 
@@ -88,4 +89,5 @@ identified <- aligned4 \%>\%
   group_by(alignment_id) \%>\% 
   reframe(NISTres[[1]])
 head(identified)
+}
 }

@@ -1,4 +1,4 @@
-#' Calculate m/z from chemical formula
+#' Calculate m/z from chemical formula and adduct
 #'
 #' @param x chemical formula
 #' @param adduct adduct ("\[M+H\]+", "\[M\]+" etc.) or NULL for neutral mass
@@ -10,6 +10,7 @@
 #' @examples
 #' fml2mz("C6H6O", "[M]+") # (radical) cation
 #' fml2mz("C6H6O") # neutral mass
+#' fml2mz("C3H7NO2", c("[M+H]+", "[M-H]-")) # (de)protonated ion
 fml2mz <- function(x, adduct = NULL, round = 4) {
   isotopes <- NULL
   utils::data("isotopes", package = "enviPat", envir = environment()) # isotopes

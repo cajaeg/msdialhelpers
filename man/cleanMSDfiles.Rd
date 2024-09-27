@@ -13,12 +13,13 @@ cleanMSDfiles(
 \arguments{
 \item{msdir}{MS-DIAL working directory}
 
-\item{pat}{file pattern passed to \code{list.files()}. The default pattern selects .pai2, .dcl, .msdial and .aef files.}
+\item{pat}{file pattern passed to \code{list.files()}. The default
+pattern selects .pai2, .dcl, .msdial and .aef files.}
 
 \item{ask}{ask before deleting}
 }
 \value{
-(invisibly) file names
+(invisibly) character vector of file names
 }
 \description{
 Remove text files created by an MS-DIAL run

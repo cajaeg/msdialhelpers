@@ -9,7 +9,8 @@ loadRaws(msfiles, profstep = 0, minabs = 0, ...)
 \arguments{
 \item{msfiles}{mz(X)ML files to load}
 
-\item{profstep}{profile matrix step size parameter used by \code{\link[xcms]{xcmsRaw}()}}
+\item{profstep}{profile matrix step size parameter used by
+\code{\link[xcms]{xcmsRaw}()}}
 
 \item{minabs}{absolute intensity threshold}
 
@@ -19,7 +20,8 @@ loadRaws(msfiles, profstep = 0, minabs = 0, ...)
 list of \code{xcmsRaw}'s
 }
 \description{
-Wrapper for \code{\link[xcms]{xcmsRaw}()} accepting multiple MS files and optionally applying an intensity filter.
+Wrapper for \code{\link[xcms]{xcmsRaw}()} accepting multiple MS files and
+optionally applying an intensity filter.
 }
 \examples{
 mzml_files <- list.files(system.file("extdata", package = "msdialhelpers"),

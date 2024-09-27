@@ -2,20 +2,21 @@
 % Please edit documentation in R/addXICs.r
 \name{addXICs}
 \alias{addXICs}
-\title{Add extracted ion chromatograms (EIC, BPC) to alignment results}
+\title{Add extracted ion chromatograms to alignment results}
 \usage{
 addXICs(
   x,
   in_column = "s",
   rt_column = c("average_rt_min", "rt_min"),
-  out_column = "bpc",
+  out_column = "xic",
   xraw,
   mz_dev = 0.01,
   rt_dev = 10,
   zeroVal = NA,
-  smooth = 3,
-  max_mz = 10,
+  smooth = 0,
+  max_mz = 5,
   EIC = FALSE,
+  .progress = FALSE,
   .pivot_longer = FALSE
 )
 }
@@ -32,19 +33,19 @@ spectra or single m/z values}
 \item{xraw}{list of 'xcmsRaw' objects}
 
 \item{mz_dev}{width of m/z window to extract (passed to
-\code{\link{getXIC}()})}
+\code{\link{getChrom}()})}
 
 \item{rt_dev}{width of RT window to extract (passed to
-\code{\link{getXIC}()})}
+\code{\link{getChrom}()})}
 
-\item{zeroVal}{value to replace NA's by (passed to \code{\link{getXIC}()})}
+\item{zeroVal}{value to replace NA's by (passed to \code{\link{getChrom}()})}
 
-\item{smooth}{(passed to \code{\link{getXIC}()})}
+\item{smooth}{(passed to \code{\link{getChrom}()})}
 
 \item{max_mz}{restrict BPC extraction to the 'max_mz' highest peaks (if
 'in_column' contains spectra)}
 
-\item{EIC}{if 'TRUE' return (sum-based) EIC instead of (maximum-based) BPC}
+\item{EIC}{if 'TRUE' add (sum-based) EICs instead of (maximum-based) BPCs}
 
 \item{.pivot_longer}{transform resulting BPC matrices to long format. Useful
 for plotting with 'ggplot'.}
@@ -53,7 +54,7 @@ for plotting with 'ggplot'.}
 data.frame
 }
 \description{
-Add extracted ion chromatograms (EIC, BPC) to alignment results
+Add extracted ion chromatograms to alignment results
 }
 \examples{
 # see ?loadAlignmentResults

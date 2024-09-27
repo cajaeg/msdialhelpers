@@ -1,6 +1,6 @@
 #' Plot extracted ion chromatograms (EIC, BPC, TIC)
 #'
-#' @param xic chromatogram as obtained by \code{\link{getXIC}()}
+#' @param chrom chromatogram as obtained by \code{\link{getChrom}()}
 #' @param label_peaks label major peaks with retention times
 #' @param fwhm full-width half maximum for peak detection (passed to
 #'   \code{\link[xcms]{peaksWithMatchedFilter}()})
@@ -12,14 +12,14 @@
 #' @param expand.ylim include some extra space for peak labels
 #' @param ... passed to underlying function \code{graphics::matplot()}
 #'
-#' @return (invisibly) original 'xic' object with attribute 'peaks' attached if
+#' @return (invisibly) original 'chrom' object with attribute 'peaks' attached if
 #'   peak detection was performed
 #' @export
 #'
 #' @examples
-#' # see getXIC()
-plotXIC <-
-  function(xic,
+#' # see getChrom()
+plotChrom <-
+  function(chrom,
            label_peaks = TRUE,
            fwhm = 5,
            label.k = 5,
@@ -28,15 +28,15 @@ plotXIC <-
            set.mfrow = TRUE,
            expand.ylim = 1.05,
            ...) {
-    if (inherits(xic, "list")) {
+    if (inherits(chrom, "list")) {
       if (set.mfrow) {
-        opar <- graphics::par(mfrow = grDevices::n2mfrow(length(xic)))
+        opar <- graphics::par(mfrow = grDevices::n2mfrow(length(chrom)))
         on.exit(graphics::par(opar))
       }
       args <- list(...)
       argNames <- names(args)
-      flt <- sapply(xic, inherits, "matrix")
-      gylim <- c(0, max(0, unlist(lapply(xic[flt], as.vector)), na.rm = TRUE) * expand.ylim)
+      flt <- sapply(chrom, inherits, "matrix")
+      gylim <- c(0, max(0, unlist(lapply(chrom[flt], as.vector)), na.rm = TRUE) * expand.ylim)
       args <- checkArgs(args, "ylim", gylim)
       args <- checkArgs(args, "xlab", "")
       args <- checkArgs(args, "ylab", "")
@@ -46,14 +46,14 @@ plotXIC <-
       args[["legend"]] <- legend
       args[["max.legend"]] <- max.legend
       args[["expand.ylim"]] <- expand.ylim
-      for (i in 1:length(xic)) {
+      for (i in 1:length(chrom)) {
         if (flt[i]) {
-          args[["xic"]] <- xic[[i]]
-          do.call(plotXIC, args)
-          if (!is.null(attr(xic[[i]], "from_file")))
+          args[["chrom"]] <- chrom[[i]]
+          do.call(plotChrom, args)
+          if (!is.null(attr(chrom[[i]], "from_file")))
             graphics::mtext(
               sub("(.+)(\\..+)$", "\\1", basename(attr(
-                xic[[i]], "from_file"
+                chrom[[i]], "from_file"
               ))),
               side = 3,
               adj = 0.01,
@@ -70,38 +70,38 @@ plotXIC <-
     args <- checkArgs(args, "type", "l")
     args <- checkArgs(args, "lty", 1:5)
     args <- checkArgs(args, "col", 1:6)
-    if (!is.null(.tmp <- attr(xic, "rt"))) {
-      xic_rt <- .tmp / 60
+    if (!is.null(.tmp <- attr(chrom, "rt"))) {
+      chrom_rt <- .tmp / 60
       xlab <- "RT (min)"
     } else if ("x" %in% argNames) {
-      xic_rt <- args[["x"]] / 60
+      chrom_rt <- args[["x"]] / 60
       xlab <- "RT (min)"
     } else {
       warning("no RT provided, using index")
-      xic_rt <- seq_len(nrow(xic))
+      chrom_rt <- seq_len(nrow(chrom))
       fwhm <- 0.1
       xlab <- "Index"
     }
-    args[["x"]] <- xic_rt
+    args[["x"]] <- chrom_rt
     args <- checkArgs(args, "xlab", xlab)
-    args[["y"]] <- xic
+    args[["y"]] <- chrom
     args <- checkArgs(args, "ylab", "Intensity (a.u.)")
-    args <- checkArgs(args, "ylim", c(0, max(1, xic, na.rm = TRUE) * expand.ylim))
+    args <- checkArgs(args, "ylim", c(0, max(1, chrom, na.rm = TRUE) * expand.ylim))
     if (is.null(args[["ylim"]]))
-      args[["ylim"]] <- c(0, max(1, xic, na.rm = TRUE) * expand.ylim)
-    if (nrow(xic) > 0) {
+      args[["ylim"]] <- c(0, max(1, chrom, na.rm = TRUE) * expand.ylim)
+    if (nrow(chrom) > 0) {
       do.call(graphics::matplot, args = args)
-      if (!any(is.finite(xic)))
+      if (!any(is.finite(chrom)))
         graphics::text(stats::median(graphics::par("usr")[1:2]), 
                        stats::median(graphics::par("usr")[3:4]), 
                        labels = "no data")
       if (label_peaks) {
-        rt <- xic_rt * 60
-        n_ions <- ncol(xic)
+        rt <- chrom_rt * 60
+        n_ions <- ncol(chrom)
         int <- if (n_ions == 1)
-          as.vector(xic[, 1])
+          as.vector(chrom[, 1])
         else
-          apply(xic, 1, function(x)
+          apply(chrom, 1, function(x)
             max(c(0, x), na.rm = TRUE))
         pks <- data.frame(suppressWarnings(
           xcms::peaksWithMatchedFilter(
@@ -130,10 +130,10 @@ plotXIC <-
       }
       show.legend <- (is.logical(legend) && legend) ||
         is.character(legend) || is.numeric(legend) ||
-        (is.null(legend) && ncol(xic) > 1)
-      show.legend <- show.legend && !is.null(attr(xic, "mz"))
+        (is.null(legend) && ncol(chrom) > 1)
+      show.legend <- show.legend && !is.null(attr(chrom, "mz"))
       if (show.legend) {
-        legtext <- sprintf("%.3f", round(attr(xic, "mz"), 3))
+        legtext <- sprintf("%.3f", round(attr(chrom, "mz"), 3))
         if (is.character(legend) || is.numeric(legend)) {
           legtext <- paste(legtext, legend)
         }
@@ -152,8 +152,8 @@ plotXIC <-
     } else {
       emptyplot("no data")
     }
-    rv <- xic
-    attr(rv, "rt") <- xic_rt * 60
+    rv <- chrom
+    attr(rv, "rt") <- chrom_rt * 60
     attr(rv, "peaks") <- if (label_peaks &&
                              exists("pks", envir = environment()))
       pks

@@ -3,14 +3,15 @@
 \docType{data}
 \name{lipid_nomenclature}
 \alias{lipid_nomenclature}
-\title{Lipid nomenclature used by MS-DIAL}
+\title{Lipid class hierarchy}
 \format{
 data.frame
 }
 \usage{
 data(lipid_nomenclature)
+ head(lipid_nomenclature)
 }
 \description{
-Data.frame giving details for lipid class abbreviations occurring in MS-DIAL results.
+Lipid class hierarchy used in MS-DIAL results
 }
 \keyword{datasets}

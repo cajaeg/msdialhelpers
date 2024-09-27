@@ -17,23 +17,22 @@ runMSDconsole(
 \item{msdir}{directory holding MS files supported by MS-DIAL (.abf, .mzML,
 .mzXML, .cdf etc.)}
 
-\item{analysis_type}{one of "gcms", "lcmsdda", "lcmsdia", "lcimmsdda",
+\item{analysis_type}{one of "gcms" (default), "lcmsdda", "lcmsdia", "lcimmsdda",
 "lcimmsdia"}
 
 \item{method}{list of parameters as returned by
 \code{\link{createMSDCmethod}()} or, alternatively, name of existing
-MS-DIAL method file (.txt)}
+MS-DIAL method file (.txt).}
 
-\item{readResults}{read .msdial using \code{\link{loadConsoleResults}()} or
-\code{\link{loadAlignmentResults}()}}
+\item{readResults}{import results files after processing}
 
 \item{skipRun}{don't run MS-DIAL console, just read existing .msdial files}
 
 \item{verbose}{show output of MS-DIAL console}
 }
 \value{
-list of data.frame's containing MS-DIAL results or vector of .msdial
-files, depending on 'readResults'
+List of data.frame's containing MS-DIAL results, or a vector of file names
+for 'readResults' == FALSE
 }
 \description{
 Add \code{options(msdialhelpers_msdialconsole_path = "~/LocalApps/MSDIAL
@@ -49,15 +48,16 @@ mzml_files <- list.files(system.file("extdata", package = "msdialhelpers"),
 workdir <- tempfile()
 dir.create(workdir)
 file.copy(mzml_files, workdir)
-(result_files <- runMSDconsole(workdir))
-peaks <- loadConsoleResults(result_files[[2]])
-aligned <- loadAlignmentResults(result_files[[1]])
+full_results <- runMSDconsole(workdir)
+alignment_results <- full_results[[1]]
+# check ?loadAlignmentsResults for examples of further processing these results
+cleanMSDfiles(workdir, ask = FALSE)
 }
 
 ## use a custom method file
 \dontrun{
 msdc_method <- createMSDCmethod(minimum_peak_height = 10000)
-(result_files <- runMSDconsole(workdir, method = msdc_method)
+(result_files <- runMSDconsole(workdir, method = msdc_method, readResults = FALSE)
 peaks <- loadConsoleResults(resfiles[[2]])
 }
 

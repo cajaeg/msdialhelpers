@@ -9,7 +9,8 @@ ri2rt(ri, ref)
 \arguments{
 \item{ri}{numeric()}
 
-\item{ref}{alkane data.frame as returned by \code{\link{loadAlkanes}()} (Num|RT|RI)}
+\item{ref}{alkane data.frame as returned by \code{\link{loadAlkanes}()}
+(Num|RT|RI)}
 }
 \value{
 numeric()

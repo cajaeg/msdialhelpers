@@ -18,19 +18,23 @@
 #' dat <- prepareSpectra(dat, in_column = "spectrum")
 #' head(dat$s[[1]])
 #' plot(dat$s[[1]][,1:2], type = "h")
-#' 
-#' also see ?loadAlignmentResults
-prepareSpectra <- function(x, in_column = "ms1", out_column = "s", intrel = 0.001) {
+#'
+#' # also see ?loadAlignmentResults
+prepareSpectra <- function(x,
+                           in_column = c("ms1", "spectrum"),
+                           out_column = "s",
+                           intrel = 0.001) {
   stopifnot(inherits(x, c("matrix", "data.frame", "tbl", "tbl_df")))
-  stopifnot(in_column %in% colnames(x))
-  s_chr <- x[[in_column]]
+  stopifnot(any(in_column %in% colnames(x)))
+  in_column <- in_column[which(in_column %in% colnames(x))[1]]
+  s_chr <- x[[ in_column ]]
   s_mat <- lapply(s_chr, str2spec)
   s_mat <- lapply(s_mat, function(x) {
-    x[,"i"] <- ifelse(is.finite(x[,"i"]), x[,"i"], 0)
+    x[, "i"] <- ifelse(is.finite(x[, "i"]), x[, "i"], 0)
     return(x)
   })
   s_mat <- lapply(s_mat, function(x) {
-    x[ x[,"i"] >= max(x[,"i"]) * intrel, ]
+    x[x[, "i"] >= max(x[, "i"]) * intrel, ]
     return(x)
   })
   s_df <- lapply(s_mat, as.data.frame, stringsAsFactors = FALSE)
@@ -46,6 +50,6 @@ prepareSpectra <- function(x, in_column = "ms1", out_column = "s", intrel = 0.00
     x$labelcol <- 1
     return(x)
   })
-  x[[out_column]] <- s_df
+  x[[ out_column ]] <- s_df
   return(x)
 }

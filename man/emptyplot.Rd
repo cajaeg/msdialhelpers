@@ -2,7 +2,7 @@
 % Please edit documentation in R/helper_functions.r
 \name{emptyplot}
 \alias{emptyplot}
-\title{Skip plot in multi-figure layout}
+\title{Skip plot in multi-figure layout by plotting "nothing"}
 \usage{
 emptyplot(message = NULL)
 }
@@ -10,5 +10,5 @@ emptyplot(message = NULL)
 \item{message}{optional text message to show, e.g. "no data"}
 }
 \description{
-Skip plot in multi-figure layout
+Skip plot in multi-figure layout by plotting "nothing"
 }

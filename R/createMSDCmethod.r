@@ -11,8 +11,8 @@
 #' @param mass_range_end m/z
 #' @param number_of_threads 1
 #' @param smoothing_method "LinearWeightedMovingAverage"
-#' @param smoothing_level 3
-#' @param average_peak_width 20
+#' @param smoothing_level 2
+#' @param average_peak_width 30
 #' @param minimum_peak_height 1000
 #' @param mass_slice_width 0.1 (for accurate mass)
 #' @param mass_accuracy 0.025 (for accurate mass)
@@ -60,8 +60,8 @@ createMSDCmethod <- function(outfile = NULL,
                              number_of_threads = 1,
                              ## Peak detection
                              smoothing_method = "LinearWeightedMovingAverage",
-                             smoothing_level = 3,
-                             average_peak_width = 20,
+                             smoothing_level = 2,
+                             average_peak_width = 30,
                              minimum_peak_height = 1000,
                              mass_slice_width = 0.1,
                              mass_accuracy = 0.025,

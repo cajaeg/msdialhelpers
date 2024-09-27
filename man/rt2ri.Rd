@@ -2,20 +2,21 @@
 % Please edit documentation in R/rt2ri.r
 \name{rt2ri}
 \alias{rt2ri}
-\title{Calculate RT from RI based on linear interpolation}
+\title{Calculate RI from RT based on linear interpolation}
 \usage{
 rt2ri(rt, ref)
 }
 \arguments{
 \item{rt}{numeric()}
 
-\item{ref}{alkane data.frame as returned by \code{\link{loadAlkanes}()} (Num|RT|RI)}
+\item{ref}{alkane data.frame as returned by \code{\link{loadAlkanes}()}
+(Num|RT|RI)}
 }
 \value{
 numeric()
 }
 \description{
-Calculate RT from RI based on linear interpolation
+Calculate RI from RT based on linear interpolation
 }
 \examples{
 fp <- system.file("extdata/Alkane.txt", package = "msdialhelpers")

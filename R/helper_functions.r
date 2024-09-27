@@ -6,6 +6,7 @@
 #' @param val default value
 #'
 #' @return list
+#' @noRd
 #'
 checkArgs <- function(args, name, val) {
   if(!name %in% names(args))
@@ -21,6 +22,7 @@ checkArgs <- function(args, name, val) {
 #' @param libPaths library paths to check, defaults to \code{.libPaths()}
 #'
 #' @return logical
+#' @noRd
 #' 
 isInstalled <- function(pkg, libPaths = .libPaths()) {
   libPaths <- match.arg(libPaths)
@@ -49,6 +51,7 @@ isInstalled <- function(pkg, libPaths = .libPaths()) {
 #' g <- hcgroup(x, h = 5, useFastCluster = FALSE)
 #' g1 <- hcgroup(x, h = 5, useFastCluster = TRUE)
 #' identical(g, g1)
+#' plot(data.frame(x = x, y = 1), type = "h", col = g, ylim = c(0, 1))
 hcgroup <- function(x,
                     h = NULL,
                     k = NULL,
@@ -66,7 +69,7 @@ hcgroup <- function(x,
       hc$height <- sqrt(hc$height)
       hc
     }
-    stats::cutree(cl, h = h, k = k)[-1]
+    stats::cutree(cl, h = h, k = k)[-1] - 1
   }
   else
     1
@@ -79,6 +82,7 @@ hcgroup <- function(x,
 #' @param x numeric vector
 #'
 #' @return numeric vector
+#' @noRd
 #'
 zero2NA <- function(x) {
   x[x==0] <- NA
@@ -92,6 +96,7 @@ zero2NA <- function(x) {
 #' @param x numeric vector
 #'
 #' @return numeric vector
+#' @noRd
 #'
 NA2zero <- function(x) {
   x[is.na(x)] <- 0
@@ -105,6 +110,7 @@ NA2zero <- function(x) {
 #' @param x numeric vector
 #'
 #' @return numeric vector
+#' @noRd
 #'
 Inf2zero <- function(x) {
   x[!is.finite(x)] <- 0
@@ -118,13 +124,14 @@ Inf2zero <- function(x) {
 #' @param l list
 #'
 #' @return data.frame
+#' @noRd
 #'
 do.rbind <- function(l) {
   data.frame(do.call(rbind, l), id = rep(1:length(l), sapply(l, nrow)))
 }
 
 
-#' Skip plot in multi-figure layout
+#' Skip plot in multi-figure layout by plotting "nothing"
 #'
 #' @param message optional text message to show, e.g. "no data"
 #'
@@ -141,12 +148,14 @@ emptyplot <- function(message = NULL) {
 
 
 #' Calculate isotope pattern using 'enviPat'
-#'
+#' 
+#' (internal function)
 #' @param fml chemical formula
 #' @param resolution mass spectral resolution (m/delta_m)
 #' @param ... passed to 'enviPat::isowrap()'
 #'
 #' @return list
+#' @noRd
 #'
 #' @examples
 #' \dontrun{
@@ -176,10 +185,11 @@ fml2iso <- function(fml, resolution = 20000, ...) {
 
 #' ion2rule
 #'
-#' (internal function)
+#' (internal function used by fml2mz())
 #' @param ions character vector, e.g. "\[M+H\]+"
 #'
 #' @return data.frame
+#' @noRd
 #'
 #' @examples
 #' \dontrun{
@@ -261,12 +271,14 @@ ion2rule <- function(ions = "[M+H]+") {
 
 #' Tabulate elements in chemical formula
 #'
-#' (internal function)
+#' (internal function used by fml2mz())
 #' @param fml chemical formula
 #' @param elements chemical elements to consider, or NULL for all elements
 #'   occurring in 'fml'
 #'
 #' @return data.frame
+#' @noRd
+#' 
 #' @examples
 #' \dontrun{
 #' fml2tbl("C6H6O")
