@@ -1,21 +1,21 @@
 #' Trigger MS-DIAL console process
 #'
 #' Add \code{options(msdialhelpers_msdialconsole_path = "~/LocalApps/MSDIAL
-#' ver.4.9.221218 Windowsx64/MsdialConsoleApp.exe")} (adjusted to the actual
-#' path of MsdialConsoleApp.exe) to your .Rprofile file. Use
-#' \code{Sys.getenv("R_USER")} to check where this file is located on your system.
+#' ver.4.9.221218 Windowsx64/MsdialConsoleApp.exe")} (adjusted accordingly to your system) to your .Rprofile file. Use
+#' \code{Sys.getenv("R_USER")} to check where this file is located on your
+#' system.
 #' @param msdir directory holding MS files supported by MS-DIAL (.abf, .mzML,
 #'   .mzXML, .cdf etc.)
-#' @param analysis_type one of "gcms" (default), "lcmsdda", "lcmsdia", "lcimmsdda",
-#'   "lcimmsdia"
+#' @param analysis_type one of "gcms" (default), "lcmsdda", "lcmsdia",
+#'   "lcimmsdda", "lcimmsdia"
 #' @param method list of parameters as returned by
 #'   \code{\link{createMSDCmethod}()} or, alternatively, name of existing
-#'   MS-DIAL method file (.txt). 
+#'   MS-DIAL method file (.txt).
 #' @param readResults import results files after processing
 #' @param skipRun don't run MS-DIAL console, just read existing .msdial files
 #' @param verbose show output of MS-DIAL console
-#' @return List of data.frame's containing MS-DIAL results, or a vector of file names
-#'   for 'readResults' == FALSE
+#' @return List of data.frame's containing MS-DIAL results, or a vector of file
+#'   names for 'readResults' == FALSE
 #' @export
 #'
 #' @examples

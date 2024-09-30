@@ -7,5 +7,4 @@
 #' @name lipid_nomenclature
 #' @usage 
 #'  data(lipid_nomenclature)
-#'  head(lipid_nomenclature)
 NULL

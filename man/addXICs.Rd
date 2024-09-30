@@ -47,6 +47,8 @@ spectra or single m/z values}
 
 \item{EIC}{if 'TRUE' add (sum-based) EICs instead of (maximum-based) BPCs}
 
+\item{.progress}{display a progress bar}
+
 \item{.pivot_longer}{transform resulting BPC matrices to long format. Useful
 for plotting with 'ggplot'.}
 }

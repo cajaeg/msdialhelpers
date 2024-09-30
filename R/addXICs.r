@@ -15,6 +15,7 @@
 #' @param max_mz restrict BPC extraction to the 'max_mz' highest peaks (if
 #'   'in_column' contains spectra)
 #' @param EIC if 'TRUE' add (sum-based) EICs instead of (maximum-based) BPCs
+#' @param .progress display a progress bar
 #' @param .pivot_longer transform resulting BPC matrices to long format. Useful
 #'   for plotting with 'ggplot'.
 #' @return data.frame

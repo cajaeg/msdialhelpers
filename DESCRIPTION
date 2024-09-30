@@ -7,7 +7,7 @@ Authors@R:
   email = "cajaeg@outlook.de", 
   role = c("aut", "cre"),
   comment = c(ORCID = "0000-0003-2192-1792"))
-Description: A collection of functions supporting import, export and analysis of files created or needed by MS-DIAL and MS-FINDER. 
+Description: A collection of functions supporting import, export and analysis of files created or needed by MS-DIAL (https://doi.org/10.1038/nmeth.3393) and MS-FINDER (https://doi.org/10.1021/acs.analchem.6b00770). 
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)

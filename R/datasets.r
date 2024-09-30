@@ -12,8 +12,8 @@
 #' @usage 
 #' data(emass)
 #' data(pmass)
-#' @noRd
 NULL
+
 
 #' Chemical elements
 #'
@@ -22,5 +22,4 @@ NULL
 #' @keywords datasets
 #' @name chemical_elements
 #' @usage data(chemical_elements)
-#' @noRd
 NULL

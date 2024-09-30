@@ -9,7 +9,6 @@ data.frame
 }
 \usage{
 data(lipid_nomenclature)
- head(lipid_nomenclature)
 }
 \description{
 Lipid class hierarchy used in MS-DIAL results

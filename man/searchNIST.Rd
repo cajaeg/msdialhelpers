@@ -65,7 +65,7 @@ Tested with MSPepSearch64 v2019_02_22.
 }
 \examples{
 \dontrun{
-spec <- str2spec("135:999 107:275 150:262 41:150 95:142 136:103 77:84 39:74 91:72 65:49")
+spec <- str2spec("39:74 41:150 65:49 77:84 91:72 95:142 107:275 135:999 136:103 150:262")
 searchNIST(spec)
 searchNIST(spec, ri_obs = 1300)
 }

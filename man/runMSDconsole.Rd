@@ -17,8 +17,8 @@ runMSDconsole(
 \item{msdir}{directory holding MS files supported by MS-DIAL (.abf, .mzML,
 .mzXML, .cdf etc.)}
 
-\item{analysis_type}{one of "gcms" (default), "lcmsdda", "lcmsdia", "lcimmsdda",
-"lcimmsdia"}
+\item{analysis_type}{one of "gcms" (default), "lcmsdda", "lcmsdia",
+"lcimmsdda", "lcimmsdia"}
 
 \item{method}{list of parameters as returned by
 \code{\link{createMSDCmethod}()} or, alternatively, name of existing
@@ -31,14 +31,14 @@ MS-DIAL method file (.txt).}
 \item{verbose}{show output of MS-DIAL console}
 }
 \value{
-List of data.frame's containing MS-DIAL results, or a vector of file names
-for 'readResults' == FALSE
+List of data.frame's containing MS-DIAL results, or a vector of file
+names for 'readResults' == FALSE
 }
 \description{
 Add \code{options(msdialhelpers_msdialconsole_path = "~/LocalApps/MSDIAL
-ver.4.9.221218 Windowsx64/MsdialConsoleApp.exe")} (adjusted to the actual
-path of MsdialConsoleApp.exe) to your .Rprofile file. Use
-\code{Sys.getenv("R_USER")} to check where this file is located on your system.
+ver.4.9.221218 Windowsx64/MsdialConsoleApp.exe")} (adjusted accordingly to your system) to your .Rprofile file. Use
+\code{Sys.getenv("R_USER")} to check where this file is located on your
+system.
 }
 \examples{
 \dontrun{
