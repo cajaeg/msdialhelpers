@@ -2,7 +2,7 @@
 #'
 #' Wrapper for ProteoWizard MSConvert command-line tool ("msconvert.exe").
 #'
-#' Supported input files of MSConvert include:
+#' Supported input files are the same as in MSConvert GUI:
 #' \itemize{
 #' \item AB/Sciex T2D
 #' \item Agilent MassHunter
